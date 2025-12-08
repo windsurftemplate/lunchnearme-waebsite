@@ -1,0 +1,174 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Request deletion of your LunchNear.me account and data">
+    <title>Delete My Data - LunchNear.me</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🍽️</text></svg>">
+    <style>
+        html { scroll-behavior: smooth; }
+        body { font-family: 'Inter', sans-serif; }
+    </style>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        stone: { 850: '#1f1f1e' }
+                    }
+                }
+            }
+        }
+    </script>
+</head>
+<body class="bg-stone-50 text-stone-900 antialiased">
+
+    <!-- Navigation -->
+    <nav class="fixed top-0 w-full z-50 bg-stone-50/80 backdrop-blur-md border-b border-stone-200/60">
+        <div class="max-w-7xl mx-auto px-6 h-16 flex items-center justify-between">
+            <div class="flex items-center gap-2">
+                <a href="/" class="text-2xl">🍽️</a>
+                <span class="text-sm font-semibold tracking-tight">LunchNear.me</span>
+            </div>
+            <div class="hidden md:flex items-center gap-8">
+                <a href="/#features" class="text-xs font-medium text-stone-500 hover:text-stone-900 transition-colors">Features</a>
+                <a href="/#how-it-works" class="text-xs font-medium text-stone-500 hover:text-stone-900 transition-colors">How It Works</a>
+                <a href="/#download" class="text-xs font-medium text-stone-500 hover:text-stone-900 transition-colors">Download</a>
+            </div>
+            <a href="/#download" class="h-9 px-5 rounded-lg bg-orange-500 text-white text-xs font-medium hover:bg-orange-600 transition-all flex items-center justify-center gap-2 shadow-lg shadow-orange-500/20">
+                Get the App
+            </a>
+        </div>
+    </nav>
+
+    <!-- Delete Data Content -->
+    <main class="pt-32 pb-24 px-6">
+        <div class="max-w-2xl mx-auto">
+            <div class="text-center mb-12">
+                <div class="w-20 h-20 bg-red-100 rounded-2xl flex items-center justify-center mx-auto mb-6">
+                    <i data-lucide="trash-2" class="w-10 h-10 text-red-600"></i>
+                </div>
+                <h1 class="text-4xl md:text-5xl font-medium tracking-tight mb-4">Delete My Data</h1>
+                <p class="text-stone-500 text-lg">Request complete deletion of your account and all associated data</p>
+            </div>
+
+            <!-- Info Card -->
+            <div class="bg-white border border-stone-200 rounded-2xl p-8 mb-8 shadow-sm">
+                <h2 class="text-xl font-semibold mb-4">What gets deleted?</h2>
+                <p class="text-stone-600 mb-6">When you request data deletion, we will permanently remove:</p>
+                <ul class="space-y-3 mb-8">
+                    <li class="flex items-start gap-3">
+                        <i data-lucide="check-circle" class="w-5 h-5 text-green-600 mt-0.5 flex-shrink-0"></i>
+                        <span class="text-stone-600">Your account information (email, display name)</span>
+                    </li>
+                    <li class="flex items-start gap-3">
+                        <i data-lucide="check-circle" class="w-5 h-5 text-green-600 mt-0.5 flex-shrink-0"></i>
+                        <span class="text-stone-600">Profile photo and food preferences</span>
+                    </li>
+                    <li class="flex items-start gap-3">
+                        <i data-lucide="check-circle" class="w-5 h-5 text-green-600 mt-0.5 flex-shrink-0"></i>
+                        <span class="text-stone-600">All reviews and ratings you've submitted</span>
+                    </li>
+                    <li class="flex items-start gap-3">
+                        <i data-lucide="check-circle" class="w-5 h-5 text-green-600 mt-0.5 flex-shrink-0"></i>
+                        <span class="text-stone-600">Group memberships and voting history</span>
+                    </li>
+                    <li class="flex items-start gap-3">
+                        <i data-lucide="check-circle" class="w-5 h-5 text-green-600 mt-0.5 flex-shrink-0"></i>
+                        <span class="text-stone-600">Usage data and location history</span>
+                    </li>
+                </ul>
+
+                <div class="bg-amber-50 border border-amber-200 rounded-xl p-4 mb-8">
+                    <div class="flex items-start gap-3">
+                        <i data-lucide="alert-triangle" class="w-5 h-5 text-amber-600 mt-0.5 flex-shrink-0"></i>
+                        <div>
+                            <p class="text-sm font-medium text-amber-800">This action is permanent</p>
+                            <p class="text-sm text-amber-700 mt-1">Once your data is deleted, it cannot be recovered. You will need to create a new account if you wish to use LunchNear.me again.</p>
+                        </div>
+                    </div>
+                </div>
+
+                <h2 class="text-xl font-semibold mb-4">How to request deletion</h2>
+                <p class="text-stone-600 mb-6">To request deletion of your account and data, please send us an email with your registered email address. We will process your request within 30 days.</p>
+
+                <a href="mailto:privacy@lunchnear.me?subject=Data%20Deletion%20Request&body=I%20would%20like%20to%20request%20deletion%20of%20my%20account%20and%20all%20associated%20data.%0A%0AEmail%20address%20associated%20with%20my%20account%3A%20%5Byour%20email%5D%0A%0AThank%20you." class="w-full inline-flex items-center justify-center gap-2 bg-red-600 hover:bg-red-700 text-white px-6 py-4 rounded-xl text-base font-medium transition-all shadow-lg shadow-red-600/20">
+                    <i data-lucide="mail" class="w-5 h-5"></i>
+                    Request Data Deletion
+                </a>
+            </div>
+
+            <!-- Alternative Options -->
+            <div class="bg-stone-100 rounded-2xl p-6">
+                <h3 class="text-lg font-semibold mb-3">Not sure about deleting?</h3>
+                <p class="text-stone-600 text-sm mb-4">If you're experiencing issues with the app or have concerns, we'd love to help before you go:</p>
+                <div class="flex flex-col sm:flex-row gap-3">
+                    <a href="mailto:support@lunchnear.me" class="inline-flex items-center justify-center gap-2 bg-white hover:bg-stone-50 text-stone-900 px-4 py-2 rounded-lg text-sm font-medium border border-stone-200 transition-all">
+                        <i data-lucide="message-circle" class="w-4 h-4"></i>
+                        Contact Support
+                    </a>
+                    <a href="privacy.html" class="inline-flex items-center justify-center gap-2 bg-white hover:bg-stone-50 text-stone-900 px-4 py-2 rounded-lg text-sm font-medium border border-stone-200 transition-all">
+                        <i data-lucide="shield" class="w-4 h-4"></i>
+                        View Privacy Policy
+                    </a>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <!-- Footer -->
+    <footer class="bg-white border-t border-stone-200 pt-16 pb-8">
+        <div class="max-w-7xl mx-auto px-6">
+            <div class="grid grid-cols-2 md:grid-cols-4 gap-8 mb-12">
+                <div>
+                    <h4 class="text-xs font-semibold text-stone-900 mb-4">Product</h4>
+                    <ul class="space-y-2">
+                        <li><a href="/#features" class="text-xs text-stone-500 hover:text-stone-900">Features</a></li>
+                        <li><a href="/#how-it-works" class="text-xs text-stone-500 hover:text-stone-900">How It Works</a></li>
+                        <li><a href="/#download" class="text-xs text-stone-500 hover:text-stone-900">Download</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <h4 class="text-xs font-semibold text-stone-900 mb-4">Legal</h4>
+                    <ul class="space-y-2">
+                        <li><a href="privacy.html" class="text-xs text-stone-500 hover:text-stone-900">Privacy Policy</a></li>
+                        <li><a href="terms.html" class="text-xs text-stone-500 hover:text-stone-900">Terms of Service</a></li>
+                        <li><a href="delete.html" class="text-xs text-stone-500 hover:text-stone-900">Delete My Data</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <h4 class="text-xs font-semibold text-stone-900 mb-4">Support</h4>
+                    <ul class="space-y-2">
+                        <li><a href="mailto:support@lunchnear.me" class="text-xs text-stone-500 hover:text-stone-900">Contact Us</a></li>
+                        <li><a href="mailto:privacy@lunchnear.me" class="text-xs text-stone-500 hover:text-stone-900">Privacy Questions</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <h4 class="text-xs font-semibold text-stone-900 mb-4">Connect</h4>
+                    <div class="flex gap-4">
+                        <a href="#" class="text-stone-400 hover:text-stone-900"><i data-lucide="twitter" class="w-4 h-4"></i></a>
+                        <a href="#" class="text-stone-400 hover:text-stone-900"><i data-lucide="instagram" class="w-4 h-4"></i></a>
+                    </div>
+                </div>
+            </div>
+            <div class="pt-8 border-t border-stone-100 flex flex-col md:flex-row justify-between items-center gap-4">
+                <div class="flex items-center gap-2">
+                    <span class="text-xl">🍽️</span>
+                    <span class="text-xs font-semibold tracking-tight">LunchNear.me</span>
+                </div>
+                <div class="text-[10px] text-stone-400">
+                    &copy; 2025 LunchNear.me. All rights reserved.
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        lucide.createIcons();
+    </script>
+</body>
+</html>
