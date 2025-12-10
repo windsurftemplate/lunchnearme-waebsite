@@ -305,54 +305,18 @@
                 <p class="text-stone-500 font-light text-sm">Help us make LunchNear.me even better. Share your thoughts, suggestions, or report issues.</p>
             </div>
 
-            <form action="https://formspree.io/hello@lunchnear.me" method="POST" class="bg-white rounded-2xl p-8 shadow-lg border border-stone-100">
-                <div class="space-y-6">
-                    <!-- Name -->
-                    <div>
-                        <label for="name" class="block text-sm font-medium text-stone-700 mb-2">Name</label>
-                        <input type="text" id="name" name="name" required
-                            class="w-full px-4 py-3 rounded-xl border border-stone-200 focus:border-orange-500 focus:ring-2 focus:ring-orange-500/20 outline-none transition-all text-sm"
-                            placeholder="Your name">
-                    </div>
-
-                    <!-- Email -->
-                    <div>
-                        <label for="email" class="block text-sm font-medium text-stone-700 mb-2">Email</label>
-                        <input type="email" id="email" name="email" required
-                            class="w-full px-4 py-3 rounded-xl border border-stone-200 focus:border-orange-500 focus:ring-2 focus:ring-orange-500/20 outline-none transition-all text-sm"
-                            placeholder="your@email.com">
-                    </div>
-
-                    <!-- Feedback Type -->
-                    <div>
-                        <label for="type" class="block text-sm font-medium text-stone-700 mb-2">Feedback Type</label>
-                        <select id="type" name="type" required
-                            class="w-full px-4 py-3 rounded-xl border border-stone-200 focus:border-orange-500 focus:ring-2 focus:ring-orange-500/20 outline-none transition-all text-sm bg-white">
-                            <option value="">Select a type...</option>
-                            <option value="suggestion">Feature Suggestion</option>
-                            <option value="bug">Bug Report</option>
-                            <option value="compliment">Compliment</option>
-                            <option value="question">Question</option>
-                            <option value="other">Other</option>
-                        </select>
-                    </div>
-
-                    <!-- Message -->
-                    <div>
-                        <label for="message" class="block text-sm font-medium text-stone-700 mb-2">Message</label>
-                        <textarea id="message" name="message" rows="5" required
-                            class="w-full px-4 py-3 rounded-xl border border-stone-200 focus:border-orange-500 focus:ring-2 focus:ring-orange-500/20 outline-none transition-all text-sm resize-none"
-                            placeholder="Tell us what you think..."></textarea>
-                    </div>
-
-                    <!-- Submit Button -->
-                    <button type="submit"
-                        class="w-full h-12 rounded-xl gradient-bg text-white text-sm font-medium hover:opacity-90 transition-all flex items-center justify-center gap-2 shadow-lg shadow-orange-500/30">
-                        <i data-feather="send" class="w-4 h-4"></i>
-                        Send Feedback
-                    </button>
-                </div>
-            </form>
+            <div class="bg-white rounded-2xl shadow-lg border border-stone-100 overflow-hidden">
+                <iframe
+                    src="https://docs.google.com/forms/d/e/1FAIpQLScEQ_fiG-bVLoiwQ1uvrB1aW728uHf_d4zIoAToRtW6nKB2uw/viewform?embedded=true"
+                    width="100%"
+                    height="600"
+                    frameborder="0"
+                    marginheight="0"
+                    marginwidth="0"
+                    class="w-full">
+                    Loading…
+                </iframe>
+            </div>
 
             <p class="text-center text-xs text-stone-400 mt-6">
                 Or email us directly at <a href="mailto:hello@lunchnear.me" class="text-orange-500 hover:underline">hello@lunchnear.me</a>
