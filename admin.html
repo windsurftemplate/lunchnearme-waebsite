@@ -178,6 +178,113 @@
             </p>
         </div>
 
+        <!-- Troubleshooting Section -->
+        <div class="mt-8 bg-white rounded-2xl border border-stone-200 p-6">
+            <h3 class="font-semibold text-lg mb-4 flex items-center gap-2">
+                <i data-feather="tool" class="w-5 h-5 text-stone-500"></i>
+                Troubleshooting Guide
+            </h3>
+
+            <div class="space-y-4">
+                <!-- Supabase -->
+                <details class="group">
+                    <summary class="cursor-pointer flex items-center justify-between p-3 bg-stone-50 rounded-lg hover:bg-stone-100 transition-colors">
+                        <span class="text-sm font-medium">Supabase Issues</span>
+                        <i data-feather="chevron-down" class="w-4 h-4 text-stone-400 group-open:rotate-180 transition-transform"></i>
+                    </summary>
+                    <div class="mt-2 p-3 text-xs text-stone-600 space-y-2">
+                        <p><strong>If showing "Down" but app works:</strong> This is likely a CORS false positive. The check can't read authenticated endpoints.</p>
+                        <p><strong>Check Supabase Dashboard:</strong> <a href="https://supabase.com/dashboard" target="_blank" class="text-orange-500 hover:underline">supabase.com/dashboard</a></p>
+                        <p><strong>Common fixes:</strong></p>
+                        <ul class="list-disc ml-4 space-y-1">
+                            <li>Check if project is paused (free tier pauses after inactivity)</li>
+                            <li>Verify API keys in app .env file</li>
+                            <li>Check RLS policies aren't blocking requests</li>
+                            <li>Review Auth settings if login fails</li>
+                        </ul>
+                        <p><strong>Status page:</strong> <a href="https://status.supabase.com" target="_blank" class="text-orange-500 hover:underline">status.supabase.com</a></p>
+                    </div>
+                </details>
+
+                <!-- Google Places -->
+                <details class="group">
+                    <summary class="cursor-pointer flex items-center justify-between p-3 bg-stone-50 rounded-lg hover:bg-stone-100 transition-colors">
+                        <span class="text-sm font-medium">Google Places Issues</span>
+                        <i data-feather="chevron-down" class="w-4 h-4 text-stone-400 group-open:rotate-180 transition-transform"></i>
+                    </summary>
+                    <div class="mt-2 p-3 text-xs text-stone-600 space-y-2">
+                        <p><strong>Common fixes:</strong></p>
+                        <ul class="list-disc ml-4 space-y-1">
+                            <li>Check API key is valid and not expired</li>
+                            <li>Verify billing is enabled on Google Cloud</li>
+                            <li>Check quota limits haven't been exceeded</li>
+                            <li>Ensure Places API is enabled in Google Cloud Console</li>
+                        </ul>
+                        <p><strong>Console:</strong> <a href="https://console.cloud.google.com/apis/credentials" target="_blank" class="text-orange-500 hover:underline">Google Cloud Console</a></p>
+                    </div>
+                </details>
+
+                <!-- Together AI -->
+                <details class="group">
+                    <summary class="cursor-pointer flex items-center justify-between p-3 bg-stone-50 rounded-lg hover:bg-stone-100 transition-colors">
+                        <span class="text-sm font-medium">Together AI Issues</span>
+                        <i data-feather="chevron-down" class="w-4 h-4 text-stone-400 group-open:rotate-180 transition-transform"></i>
+                    </summary>
+                    <div class="mt-2 p-3 text-xs text-stone-600 space-y-2">
+                        <p><strong>Common fixes:</strong></p>
+                        <ul class="list-disc ml-4 space-y-1">
+                            <li>Check API key is valid</li>
+                            <li>Verify account has credits/balance</li>
+                            <li>Check rate limits haven't been exceeded</li>
+                            <li>Try a different model if one is unavailable</li>
+                        </ul>
+                        <p><strong>Dashboard:</strong> <a href="https://api.together.xyz" target="_blank" class="text-orange-500 hover:underline">Together AI Dashboard</a></p>
+                    </div>
+                </details>
+
+                <!-- MealMe -->
+                <details class="group">
+                    <summary class="cursor-pointer flex items-center justify-between p-3 bg-stone-50 rounded-lg hover:bg-stone-100 transition-colors">
+                        <span class="text-sm font-medium">MealMe API Issues</span>
+                        <i data-feather="chevron-down" class="w-4 h-4 text-stone-400 group-open:rotate-180 transition-transform"></i>
+                    </summary>
+                    <div class="mt-2 p-3 text-xs text-stone-600 space-y-2">
+                        <p><strong>Common fixes:</strong></p>
+                        <ul class="list-disc ml-4 space-y-1">
+                            <li>Check API key is valid</li>
+                            <li>Verify subscription is active</li>
+                            <li>Check rate limits</li>
+                            <li>Contact MealMe support if issues persist</li>
+                        </ul>
+                        <p><strong>Docs:</strong> <a href="https://docs.mealme.ai" target="_blank" class="text-orange-500 hover:underline">MealMe API Docs</a></p>
+                    </div>
+                </details>
+
+                <!-- General -->
+                <details class="group">
+                    <summary class="cursor-pointer flex items-center justify-between p-3 bg-stone-50 rounded-lg hover:bg-stone-100 transition-colors">
+                        <span class="text-sm font-medium">General App Issues</span>
+                        <i data-feather="chevron-down" class="w-4 h-4 text-stone-400 group-open:rotate-180 transition-transform"></i>
+                    </summary>
+                    <div class="mt-2 p-3 text-xs text-stone-600 space-y-2">
+                        <p><strong>If all services show "Down":</strong></p>
+                        <ul class="list-disc ml-4 space-y-1">
+                            <li>Check your internet connection</li>
+                            <li>Try refreshing the page</li>
+                            <li>Clear browser cache</li>
+                            <li>Check if ad blocker is interfering</li>
+                        </ul>
+                        <p><strong>App not working but services OK:</strong></p>
+                        <ul class="list-disc ml-4 space-y-1">
+                            <li>Check .env file has all required API keys</li>
+                            <li>Rebuild the app after env changes</li>
+                            <li>Check app logs for specific errors</li>
+                        </ul>
+                    </div>
+                </details>
+            </div>
+        </div>
+
     </main>
 
     <!-- Footer -->
