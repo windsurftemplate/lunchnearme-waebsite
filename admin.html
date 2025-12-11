@@ -140,6 +140,26 @@
                 <div class="text-xs text-stone-400" id="details-ai">-</div>
             </div>
 
+            <!-- MealMe API -->
+            <div class="bg-white rounded-xl border border-stone-200 p-5" id="card-mealme">
+                <div class="flex items-start justify-between mb-4">
+                    <div class="flex items-center gap-3">
+                        <div class="w-10 h-10 rounded-lg bg-orange-100 flex items-center justify-center text-orange-600">
+                            <i data-feather="shopping-bag" class="w-5 h-5"></i>
+                        </div>
+                        <div>
+                            <h3 class="font-medium">MealMe API</h3>
+                            <p class="text-xs text-stone-500">Menus & Ordering</p>
+                        </div>
+                    </div>
+                    <div id="status-mealme" class="flex items-center gap-1.5">
+                        <div class="w-2 h-2 rounded-full bg-stone-300 spin"></div>
+                        <span class="text-xs text-stone-500">Checking</span>
+                    </div>
+                </div>
+                <div class="text-xs text-stone-400" id="details-mealme">-</div>
+            </div>
+
         </div>
 
         <!-- Refresh Button -->
@@ -185,6 +205,10 @@
             ai: {
                 name: 'Together AI',
                 url: 'https://api.together.xyz/v1/models'
+            },
+            mealme: {
+                name: 'MealMe API',
+                url: 'https://api.mealme.ai'
             }
         };
 
@@ -238,7 +262,7 @@
             const overallEl = document.getElementById('overall-status');
             const statuses = Object.values(serviceStatuses);
 
-            if (statuses.length < 3) return; // Not all checked yet
+            if (statuses.length < 4) return; // Not all checked yet
 
             const allOperational = statuses.every(s => s === 'operational');
             const anyDown = statuses.some(s => s === 'down');
@@ -309,12 +333,26 @@
             }
         }
 
+        async function checkMealMe() {
+            try {
+                const start = Date.now();
+                await fetch('https://api.mealme.ai/', {
+                    method: 'HEAD',
+                    mode: 'no-cors'
+                });
+                const latency = Date.now() - start;
+                updateServiceStatus('mealme', 'operational', `Response time: ${latency}ms`);
+            } catch (error) {
+                updateServiceStatus('mealme', 'down', 'Unable to reach endpoint');
+            }
+        }
+
         async function checkAllServices() {
             // Reset statuses
             serviceStatuses = {};
 
             // Show checking state
-            ['supabase', 'google', 'ai'].forEach(id => {
+            ['supabase', 'google', 'ai', 'mealme'].forEach(id => {
                 updateServiceStatus(id, 'checking', 'Checking...');
             });
 
@@ -325,7 +363,8 @@
             await Promise.all([
                 checkSupabase(),
                 checkGoogle(),
-                checkAI()
+                checkAI(),
+                checkMealMe()
             ]);
 
             // Update last check time
@@ -338,8 +377,8 @@
         // Initial check on page load
         checkAllServices();
 
-        // Auto-refresh every 60 seconds
-        setInterval(checkAllServices, 60000);
+        // Auto-refresh every hour
+        setInterval(checkAllServices, 3600000);
     </script>
 </body>
 </html>
