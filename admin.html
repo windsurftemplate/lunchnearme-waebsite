@@ -442,12 +442,10 @@
           .select('*', { count: 'exact', head: true })
           .eq('tier', 'premium');
 
-        // Get current month usage
-        const currentMonth = new Date().toISOString().slice(0, 7);
+        // Get usage from subscriptions table (search_count and ai_chat_count are stored there)
         const { data: usageData } = await supabase
-          .from('usage')
-          .select('search_count, ai_chat_count')
-          .eq('month', currentMonth);
+          .from('subscriptions')
+          .select('search_count, ai_chat_count');
 
         const totalSearches = usageData?.reduce((sum, u) => sum + (u.search_count || 0), 0) || 0;
         const totalChats = usageData?.reduce((sum, u) => sum + (u.ai_chat_count || 0), 0) || 0;
@@ -471,11 +469,11 @@
           </div>
           <div class="stat-card">
             <div class="stat-value">${totalSearches}</div>
-            <div class="stat-label">Searches (${currentMonth})</div>
+            <div class="stat-label">Searches (This Month)</div>
           </div>
           <div class="stat-card">
             <div class="stat-value">${totalChats}</div>
-            <div class="stat-label">AI Chats (${currentMonth})</div>
+            <div class="stat-label">AI Chats (This Month)</div>
           </div>
         `;
       } catch (error) {
@@ -575,12 +573,10 @@
       const usersList = document.getElementById('users-list');
 
       try {
-        // Get subscriptions with usage
-        const currentMonth = new Date().toISOString().slice(0, 7);
-
+        // Get subscriptions (usage is stored directly in subscriptions table)
         const { data: subs, error } = await supabase
           .from('subscriptions')
-          .select('user_id, tier, is_tester, created_at')
+          .select('user_id, tier, is_tester, search_count, ai_chat_count, search_limit, created_at')
           .order('created_at', { ascending: false })
           .limit(50);
 
@@ -591,19 +587,6 @@
           return;
         }
 
-        // Get usage for these users
-        const userIds = subs.map(s => s.user_id);
-        const { data: usageData } = await supabase
-          .from('usage')
-          .select('user_id, search_count, ai_chat_count')
-          .eq('month', currentMonth)
-          .in('user_id', userIds);
-
-        const usageMap = {};
-        usageData?.forEach(u => {
-          usageMap[u.user_id] = u;
-        });
-
         usersList.innerHTML = `
           <table>
             <thead>
@@ -613,22 +596,26 @@
                 <th>Searches</th>
                 <th>AI Chats</th>
                 <th>Joined</th>
+                <th>Actions</th>
               </tr>
             </thead>
             <tbody>
               ${subs.map(s => {
-                const usage = usageMap[s.user_id] || { search_count: 0, ai_chat_count: 0 };
                 const limit = s.tier === 'premium' ? '∞' : (s.tier === 'pro' ? '80' : '10');
                 return `
                   <tr>
-                    <td style="font-family: monospace; font-size: 12px; word-break: break-all;">${s.user_id}</td>
+                    <td style="font-family: monospace; font-size: 12px; word-break: break-all;">${s.user_id.substring(0, 8)}...</td>
                     <td>
                       <span class="badge badge-${s.tier}">${s.tier}</span>
                       ${s.is_tester ? '<span class="badge badge-tester">Tester</span>' : ''}
                     </td>
-                    <td>${usage.search_count}/${limit}</td>
-                    <td>${usage.ai_chat_count}/${limit}</td>
+                    <td>${s.search_count || 0}/${limit}</td>
+                    <td>${s.ai_chat_count || 0}/${limit}</td>
                     <td>${new Date(s.created_at).toLocaleDateString()}</td>
+                    <td>
+                      <button class="btn-small" onclick="editUserTier('${s.user_id}', '${s.tier}', ${s.is_tester})">Edit</button>
+                      <button class="btn-small secondary" onclick="resetUserUsage('${s.user_id}')">Reset</button>
+                    </td>
                   </tr>
                 `;
               }).join('')}
@@ -637,6 +624,47 @@
         `;
       } catch (error) {
         usersList.innerHTML = `<p class="error">Error loading users: ${error.message}</p>`;
+      }
+    }
+
+    // Edit user tier
+    async function editUserTier(userId, currentTier, isTester) {
+      const newTier = prompt(`Change tier for user (current: ${currentTier})\\n\\nOptions: free, pro, premium`, currentTier);
+      if (!newTier || !['free', 'pro', 'premium'].includes(newTier)) return;
+
+      const makeTester = confirm('Mark as tester? (unlimited access)');
+
+      const searchLimit = newTier === 'free' ? 10 : newTier === 'pro' ? 80 : 999999;
+
+      const { error } = await supabase
+        .from('subscriptions')
+        .update({ tier: newTier, is_tester: makeTester, search_limit: searchLimit })
+        .eq('user_id', userId);
+
+      if (error) {
+        alert('Error: ' + error.message);
+      } else {
+        alert('User updated!');
+        loadAllUsers();
+        loadStats();
+      }
+    }
+
+    // Reset user usage
+    async function resetUserUsage(userId) {
+      if (!confirm('Reset search and chat counts to 0?')) return;
+
+      const { error } = await supabase
+        .from('subscriptions')
+        .update({ search_count: 0, ai_chat_count: 0 })
+        .eq('user_id', userId);
+
+      if (error) {
+        alert('Error: ' + error.message);
+      } else {
+        alert('Usage reset!');
+        loadAllUsers();
+        loadStats();
       }
     }
 
