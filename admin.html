@@ -621,7 +621,7 @@
                 const limit = s.tier === 'premium' ? '∞' : (s.tier === 'pro' ? '80' : '10');
                 return `
                   <tr>
-                    <td title="${s.user_id}">${s.user_id.slice(0, 8)}...</td>
+                    <td style="font-family: monospace; font-size: 12px; word-break: break-all;">${s.user_id}</td>
                     <td>
                       <span class="badge badge-${s.tier}">${s.tier}</span>
                       ${s.is_tester ? '<span class="badge badge-tester">Tester</span>' : ''}
