@@ -9,7 +9,7 @@
     <meta property="og:type" content="website">
     <meta property="og:url" content="https://lunchnear.me/quiz">
     <meta property="og:title" content="What's Your Lunch Personality? | LunchNear.me">
-    <meta property="og:description" content="Take the 2-minute quiz to discover your lunch personality. Join 10,000+ SF workers who found theirs!">
+    <meta property="og:description" content="Take the 2-minute quiz to discover your lunch personality and find out how you really decide where to eat!">
     <meta property="og:image" content="https://lunchnear.me/og-quiz.png">
 
     <!-- Twitter Card -->
@@ -94,7 +94,7 @@
                 <h1 class="text-3xl md:text-4xl font-bold text-stone-900 tracking-tight">
                     What's Your <span class="gradient-text">Lunch Personality?</span>
                 </h1>
-                <p class="mt-3 text-stone-500">Join 10,000+ SF workers who discovered theirs</p>
+                <p class="mt-3 text-stone-500">7 quick questions to unlock your lunch style</p>
             </div>
 
             <!-- Progress Bar -->
@@ -709,9 +709,23 @@
         }
 
         // Check if coming from a shared result link
-        function checkSharedResult() {
+        async function checkSharedResult() {
             const params = new URLSearchParams(window.location.search);
             const result = params.get('result');
+            const refCode = params.get('ref');
+
+            // Track referral click
+            if (refCode) {
+                try {
+                    await supabase.rpc('increment_share_click', {
+                        p_referral_code: refCode
+                    });
+                    console.log('Referral click tracked:', refCode);
+                } catch (err) {
+                    console.error('Failed to track referral:', err);
+                }
+            }
+
             if (result && personalities[result]) {
                 // Show that personality's result directly
                 quizContent.classList.add('hidden');
@@ -733,13 +747,15 @@
                         </button>
                     </div>
                 `;
+                return true;
             }
+            return false;
         }
 
         // Initialize
-        document.addEventListener('DOMContentLoaded', () => {
-            checkSharedResult();
-            if (!new URLSearchParams(window.location.search).get('result')) {
+        document.addEventListener('DOMContentLoaded', async () => {
+            const isSharedResult = await checkSharedResult();
+            if (!isSharedResult) {
                 init();
             }
             feather.replace();
