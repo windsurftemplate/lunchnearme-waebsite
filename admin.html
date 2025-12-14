@@ -573,10 +573,22 @@
       const usersList = document.getElementById('users-list');
 
       try {
-        // Get subscriptions (usage is stored directly in subscriptions table)
+        // Get subscriptions with user info (join with users table)
         const { data: subs, error } = await supabase
           .from('subscriptions')
-          .select('user_id, tier, is_tester, search_count, ai_chat_count, search_limit, created_at')
+          .select(`
+            user_id,
+            tier,
+            is_tester,
+            search_count,
+            ai_chat_count,
+            search_limit,
+            created_at,
+            users (
+              email,
+              display_name
+            )
+          `)
           .order('created_at', { ascending: false })
           .limit(50);
 
@@ -591,7 +603,7 @@
           <table>
             <thead>
               <tr>
-                <th>User ID</th>
+                <th>User</th>
                 <th>Tier</th>
                 <th>Searches</th>
                 <th>AI Chats</th>
@@ -602,9 +614,15 @@
             <tbody>
               ${subs.map(s => {
                 const limit = s.tier === 'premium' ? '∞' : (s.tier === 'pro' ? '80' : '10');
+                const user = s.users || {};
+                const displayName = user.display_name || 'No name';
+                const email = user.email || s.user_id.substring(0, 8) + '...';
                 return `
                   <tr>
-                    <td style="font-family: monospace; font-size: 12px; word-break: break-all;">${s.user_id.substring(0, 8)}...</td>
+                    <td>
+                      <strong>${displayName}</strong><br>
+                      <small style="color: #666;">${email}</small>
+                    </td>
                     <td>
                       <span class="badge badge-${s.tier}">${s.tier}</span>
                       ${s.is_tester ? '<span class="badge badge-tester">Tester</span>' : ''}
