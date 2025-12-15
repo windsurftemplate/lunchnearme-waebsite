@@ -20,7 +20,7 @@
 
     <title>What's Your Lunch Personality? | LunchNear.me</title>
     <script src="https://cdn.tailwindcss.com"></script>
-    <script src="https://unpkg.com/feather-icons"></script>
+    <script src="https://code.iconify.design/iconify-icon/2.1.0/iconify-icon.min.js"></script>
     <script src="https://unpkg.com/@supabase/supabase-js@2"></script>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🎯</text></svg>">
@@ -82,7 +82,7 @@
         <!-- Header -->
         <header class="mb-8">
             <a href="index.html" class="inline-flex items-center gap-2 text-stone-500 hover:text-stone-700 transition-colors text-sm">
-                <i data-feather="arrow-left" class="w-4 h-4"></i>
+                <iconify-icon icon="ph:arrow-left" class="w-4 h-4"></iconify-icon>
                 Back to Home
             </a>
         </header>
@@ -332,7 +332,6 @@
 
         // Initialize
         function init() {
-            feather.replace();
             renderQuestion();
             updateLiveCount();
         }
@@ -758,7 +757,6 @@
             if (!isSharedResult) {
                 init();
             }
-            feather.replace();
         });
     </script>
 </body>
