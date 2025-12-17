@@ -136,7 +136,7 @@
                                 <span class="material-icons-round text-brand-orange">psychology</span> 8 Types
                             </div>
                         </div>
-                        <button onclick="startQuiz()" class="bg-gradient-to-r from-brand-orange to-brand-pink text-white font-bold text-lg px-10 py-4 rounded-full hover:opacity-90 transition-all shadow-lg shadow-brand-orange/30 hover:shadow-brand-orange/40 transform hover:-translate-y-1 flex items-center justify-center gap-2 mx-auto">
+                        <button id="start-quiz-btn" class="bg-gradient-to-r from-brand-orange to-brand-pink text-white font-bold text-lg px-10 py-4 rounded-full hover:opacity-90 transition-all shadow-lg shadow-brand-orange/30 hover:shadow-brand-orange/40 transform hover:-translate-y-1 flex items-center justify-center gap-2 mx-auto">
                             <span class="material-icons-round">play_arrow</span>
                             Start Quiz
                         </button>
@@ -860,6 +860,12 @@
         document.addEventListener('DOMContentLoaded', async () => {
             // Always initialize DOM elements first
             initDOMElements();
+
+            // Attach click handler to start button
+            const startBtn = document.getElementById('start-quiz-btn');
+            if (startBtn) {
+                startBtn.addEventListener('click', startQuiz);
+            }
 
             const isSharedResult = await checkSharedResult();
             if (!isSharedResult) {
