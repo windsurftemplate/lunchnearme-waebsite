@@ -21,8 +21,8 @@
     <title>What's Your Lunch Personality? | LunchNear.me</title>
     <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
     <script src="https://unpkg.com/@supabase/supabase-js@2"></script>
-    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;600;700&family=Source+Sans+Pro:wght@300;400;500;600;700&display=swap" rel="stylesheet">
-    <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons+Round" rel="stylesheet">
     <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🎯</text></svg>">
     <script>
         tailwind.config = {
@@ -40,8 +40,8 @@
                         "surface-light": "#ffffff"
                     },
                     fontFamily: {
-                        "display": ["Playfair Display", "serif"],
-                        "body": ["Source Sans Pro", "sans-serif"]
+                        "display": ["Plus Jakarta Sans", "sans-serif"],
+                        "body": ["Inter", "sans-serif"]
                     },
                     borderRadius: {
                         "DEFAULT": "1rem",
@@ -55,10 +55,7 @@
     </script>
     <style>
         html { scroll-behavior: smooth; }
-        body { font-family: 'Source Sans Pro', sans-serif; }
-        .material-symbols-outlined {
-            font-variation-settings: 'FILL' 1, 'wght' 400, 'GRAD' 0, 'opsz' 24;
-        }
+        body { font-family: 'Inter', sans-serif; }
         @keyframes fadeIn {
             from { opacity: 0; transform: translateY(10px); }
             to { opacity: 1; transform: translateY(0); }
@@ -100,7 +97,7 @@
                     </a>
                 </div>
                 <button class="sm:hidden p-2 rounded-full hover:bg-black/5 dark:hover:bg-white/10">
-                    <span class="material-symbols-outlined">menu</span>
+                    <span class="material-icons-round">menu</span>
                 </button>
             </div>
         </div>
@@ -118,29 +115,37 @@
 
             <!-- Quiz Content -->
             <div id="quiz-content">
-                <!-- Hero Section -->
-                <section class="flex flex-col items-center justify-center text-center p-4 mb-8">
-                    <div class="max-w-xl mx-auto bg-white/70 backdrop-blur-sm rounded-lg p-6 md:p-8 shadow-xl text-slate-800">
-                        <p class="text-sm font-bold uppercase tracking-widest text-brand-orange mb-2 font-body">Personality Quiz</p>
-                        <h1 class="text-4xl md:text-5xl lg:text-6xl font-display font-bold leading-tight tracking-tight text-slate-900 mb-4">
+                <!-- Hero Section (Start Screen) -->
+                <section id="quiz-start" class="flex flex-col items-center justify-center text-center p-4">
+                    <div class="max-w-xl mx-auto bg-white/90 backdrop-blur-sm rounded-3xl p-8 md:p-12 shadow-xl text-slate-800">
+                        <p class="text-sm font-bold uppercase tracking-widest text-brand-orange mb-4 font-body">Personality Quiz</p>
+                        <h1 class="text-4xl md:text-5xl lg:text-6xl font-display font-bold leading-tight tracking-tight text-slate-900 mb-6">
                             What's Your Lunch Personality?
                         </h1>
-                        <p class="text-lg text-slate-700 leading-relaxed mb-6 font-body">
+                        <p class="text-lg text-slate-700 leading-relaxed mb-8 font-body">
                             Discover your true dining persona with this insightful 2-minute journey. Are you an Optimizer, Explorer, or perhaps a Creature of Habit?
                         </p>
-                        <div class="flex flex-wrap gap-4 justify-center pt-2 text-slate-600">
+                        <div class="flex flex-wrap gap-6 justify-center mb-8 text-slate-600">
                             <div class="flex items-center gap-2 text-sm font-medium">
-                                <span class="material-symbols-outlined text-brand-orange">timer</span> 2 mins
+                                <span class="material-icons-round text-brand-orange">timer</span> 2 mins
                             </div>
                             <div class="flex items-center gap-2 text-sm font-medium">
-                                <span class="material-symbols-outlined text-brand-orange">quiz</span> 7 Questions
+                                <span class="material-icons-round text-brand-orange">help_outline</span> 7 Questions
+                            </div>
+                            <div class="flex items-center gap-2 text-sm font-medium">
+                                <span class="material-icons-round text-brand-orange">psychology</span> 8 Types
                             </div>
                         </div>
+                        <button onclick="startQuiz()" class="bg-gradient-to-r from-brand-orange to-brand-pink text-white font-bold text-lg px-10 py-4 rounded-full hover:opacity-90 transition-all shadow-lg shadow-brand-orange/30 hover:shadow-brand-orange/40 transform hover:-translate-y-1 flex items-center justify-center gap-2 mx-auto">
+                            <span class="material-icons-round">play_arrow</span>
+                            Start Quiz
+                        </button>
+                        <p class="text-xs text-slate-400 mt-6 font-body">No email required to see your results</p>
                     </div>
                 </section>
 
-                <!-- Quiz Card -->
-                <section class="max-w-3xl mx-auto w-full">
+                <!-- Quiz Card (Hidden initially) -->
+                <section id="quiz-questions" class="max-w-3xl mx-auto w-full hidden">
                     <div id="question-card" class="bg-white/85 dark:bg-surface-dark/90 backdrop-blur-md rounded-3xl p-6 md:p-10 shadow-xl border border-black/5 dark:border-white/5 relative overflow-hidden transition-colors duration-300 text-slate-800 dark:text-white animate-fade-in">
 
                         <!-- Progress Bar -->
@@ -157,7 +162,7 @@
                         <!-- Question -->
                         <div class="mb-8 md:mb-10 text-center relative z-10">
                             <div class="inline-flex items-center justify-center size-12 rounded-full bg-gradient-to-br from-brand-orange/10 to-brand-pink/10 text-brand-orange mb-4">
-                                <span class="material-symbols-outlined text-2xl">local_dining</span>
+                                <span class="material-icons-round text-2xl">local_dining</span>
                             </div>
                             <h2 id="question-text" class="text-2xl md:text-3xl font-display font-bold leading-tight mb-2"></h2>
                             <p class="text-slate-600 dark:text-slate-400 text-sm font-body">Your authentic inclination will guide us.</p>
@@ -312,7 +317,7 @@
             },
             social: {
                 name: "The Social Luncher",
-                icon: "groups",
+                icon: "group",
                 tagline: "It's not about the food, it's about the people",
                 description: "For you, lunch is about connection. The food is secondary to the company. You're the one organizing team lunches, remembering everyone's dietary restrictions, and making sure everyone's included.",
                 strengths: ["Great at group coordination", "Remembers everyone's preferences", "Builds team morale", "Inclusive"],
@@ -324,7 +329,7 @@
             },
             budget: {
                 name: "The Budget Boss",
-                icon: "savings",
+                icon: "account_balance_wallet",
                 tagline: "A great lunch doesn't have to break the bank",
                 description: "You know the value of a dollar and refuse to overpay for lunch. You've found the best spots with the biggest portions at the lowest prices. Your colleagues think you're frugal, but you call it smart.",
                 strengths: ["Financially savvy", "Finds hidden value spots", "Great at stretching a budget", "Never overpays"],
@@ -388,11 +393,19 @@
         const optionsContainer = document.getElementById('options-container');
         const quizContent = document.getElementById('quiz-content');
         const resultsContent = document.getElementById('results-content');
+        const quizStart = document.getElementById('quiz-start');
+        const quizQuestions = document.getElementById('quiz-questions');
 
-        // Initialize
+        // Initialize - just update live count, wait for user to start
         function init() {
-            renderQuestion();
             updateLiveCount();
+        }
+
+        // Start the quiz
+        function startQuiz() {
+            quizStart.classList.add('hidden');
+            quizQuestions.classList.remove('hidden');
+            renderQuestion();
         }
 
         // Update live count randomly
@@ -420,7 +433,7 @@
                         <span class="font-bold">${letters[i]}</span>
                     </div>
                     <span class="flex-grow font-body font-medium text-lg">${opt.text}</span>
-                    <span class="material-symbols-outlined text-slate-300 dark:text-slate-600 group-hover:text-brand-pink opacity-0 group-hover:opacity-100 transition-all transform translate-x-[-10px] group-hover:translate-x-0">arrow_forward</span>
+                    <span class="material-icons-round text-slate-300 dark:text-slate-600 group-hover:text-brand-pink opacity-0 group-hover:opacity-100 transition-all transform translate-x-[-10px] group-hover:translate-x-0">arrow_forward</span>
                 </button>
             `).join('');
         }
@@ -517,7 +530,7 @@
                     <div class="bg-white/85 dark:bg-surface-dark/90 backdrop-blur-md rounded-3xl p-6 md:p-10 shadow-xl border border-black/5 dark:border-white/5 relative overflow-hidden mb-6 text-center">
                         <p class="text-lg text-slate-500 dark:text-slate-400 mb-4 font-body">Your Lunch Personality is...</p>
                         <div class="w-24 h-24 rounded-2xl mx-auto mb-4 flex items-center justify-center shadow-lg" style="background: ${personality.color}20; color: ${personality.color}">
-                            <span class="material-symbols-outlined text-5xl">${personality.icon}</span>
+                            <span class="material-icons-round text-5xl">${personality.icon}</span>
                         </div>
                         <h1 class="text-4xl font-bold text-slate-900 dark:text-white mb-2 font-display">${personality.name}</h1>
                         <p class="text-xl font-medium italic mb-2" style="color: ${personality.color}">"${personality.tagline}"</p>
@@ -549,7 +562,7 @@
                         <div class="grid md:grid-cols-2 gap-6">
                             <div>
                                 <h3 class="font-semibold text-slate-900 dark:text-white mb-3 flex items-center gap-2 font-display">
-                                    <span class="material-symbols-outlined text-green-500">check_circle</span> Your Strengths
+                                    <span class="material-icons-round text-green-500">check_circle</span> Your Strengths
                                 </h3>
                                 <ul class="space-y-2">
                                     ${personality.strengths.map(s => `<li class="text-slate-600 dark:text-slate-400 flex items-start gap-2 font-body"><span class="text-green-500 mt-1">•</span>${s}</li>`).join('')}
@@ -557,7 +570,7 @@
                             </div>
                             <div>
                                 <h3 class="font-semibold text-slate-900 dark:text-white mb-3 flex items-center gap-2 font-display">
-                                    <span class="material-symbols-outlined text-brand-orange">warning</span> Watch Out For
+                                    <span class="material-icons-round text-brand-orange">warning</span> Watch Out For
                                 </h3>
                                 <ul class="space-y-2">
                                     ${personality.weaknesses.map(w => `<li class="text-slate-600 dark:text-slate-400 flex items-start gap-2 font-body"><span class="text-brand-orange mt-1">•</span>${w}</li>`).join('')}
@@ -579,11 +592,11 @@
                         <p class="text-white/90 mb-4 font-body">${personality.appHook}</p>
                         <div class="flex flex-col sm:flex-row gap-3">
                             <a href="https://play.google.com/store/apps/details?id=com.lunchnear.me" target="_blank" class="flex items-center justify-center gap-2 bg-white text-slate-900 font-semibold py-3 px-6 rounded-full hover:bg-slate-100 transition-colors">
-                                <span class="material-symbols-outlined">android</span>
+                                <span class="material-icons-round">android</span>
                                 Download for Android
                             </a>
                             <a href="index.html#download" class="flex items-center justify-center gap-2 bg-white/20 text-white font-semibold py-3 px-6 rounded-full hover:bg-white/30 transition-colors">
-                                <span class="material-symbols-outlined">phone_iphone</span>
+                                <span class="material-icons-round">phone_iphone</span>
                                 iOS Coming Soon
                             </a>
                         </div>
@@ -602,7 +615,7 @@
                                 Share on LinkedIn
                             </button>
                             <button onclick="copyLink('${result}')" id="copy-btn" class="flex items-center gap-2 bg-slate-100 dark:bg-white/10 text-slate-700 dark:text-slate-300 px-5 py-3 rounded-full hover:bg-slate-200 dark:hover:bg-white/20 transition-colors w-full sm:w-auto justify-center font-body">
-                                <span class="material-symbols-outlined">content_copy</span>
+                                <span class="material-icons-round">content_copy</span>
                                 Copy Link
                             </button>
                         </div>
@@ -615,7 +628,7 @@
                             ${Object.entries(personalities).map(([key, p]) => `
                                 <button onclick="showPersonality('${key}')" class="p-4 rounded-2xl text-center transition-all ${key === result ? 'bg-brand-orange/10 border-2 border-brand-orange' : 'bg-white/50 dark:bg-black/20 border-2 border-slate-100 dark:border-white/5 hover:border-brand-orange'} group">
                                     <div class="w-12 h-12 rounded-xl mx-auto mb-2 flex items-center justify-center transition-transform group-hover:scale-110" style="background: ${p.color}20; color: ${p.color}">
-                                        <span class="material-symbols-outlined text-2xl">${p.icon}</span>
+                                        <span class="material-icons-round text-2xl">${p.icon}</span>
                                     </div>
                                     <span class="text-sm font-medium text-slate-700 dark:text-slate-300 block font-body">${p.name}</span>
                                     <span class="text-xs text-slate-400 block">${p.percentage}%</span>
@@ -627,7 +640,7 @@
                     <!-- Retake -->
                     <div class="text-center">
                         <button onclick="retakeQuiz()" class="text-brand-orange hover:text-brand-pink font-medium inline-flex items-center gap-2 transition-colors font-body">
-                            <span class="material-symbols-outlined">refresh</span>
+                            <span class="material-icons-round">refresh</span>
                             Retake the Quiz
                         </button>
                     </div>
@@ -681,11 +694,11 @@
                 : `https://lunchnear.me/quiz.html?result=${type}`;
             navigator.clipboard.writeText(url).then(() => {
                 const btn = document.getElementById('copy-btn');
-                btn.innerHTML = '<span class="material-symbols-outlined">check</span> Copied!';
+                btn.innerHTML = '<span class="material-icons-round">check</span> Copied!';
                 btn.classList.add('bg-green-500', 'text-white');
                 btn.classList.remove('bg-slate-100', 'text-slate-700', 'dark:bg-white/10', 'dark:text-slate-300');
                 setTimeout(() => {
-                    btn.innerHTML = '<span class="material-symbols-outlined">content_copy</span> Copy Link';
+                    btn.innerHTML = '<span class="material-icons-round">content_copy</span> Copy Link';
                     btn.classList.remove('bg-green-500', 'text-white');
                     btn.classList.add('bg-slate-100', 'text-slate-700', 'dark:bg-white/10', 'dark:text-slate-300');
                 }, 2000);
@@ -746,7 +759,7 @@
                 // Show success state
                 e.target.innerHTML = `
                     <div class="text-center py-4">
-                        <span class="material-symbols-outlined text-5xl text-brand-orange mb-3">celebration</span>
+                        <span class="material-icons-round text-5xl text-brand-orange mb-3">emoji_events</span>
                         <h3 class="text-xl font-bold text-slate-900 dark:text-white mb-2 font-display">You're In!</h3>
                         <p class="text-slate-600 dark:text-slate-400 font-body">Check your inbox for your personalized lunch tips and full personality breakdown.</p>
                     </div>
@@ -769,9 +782,11 @@
             currentQuestion = 0;
             answers = [];
             scores = { optimizer: 0, explorer: 0, habit: 0, social: 0, budget: 0, foodie: 0, health: 0, mood: 0 };
+            currentResultId = null;
             quizContent.classList.remove('hidden');
             resultsContent.classList.add('hidden');
-            renderQuestion();
+            quizStart.classList.remove('hidden');
+            quizQuestions.classList.add('hidden');
         }
 
         // Check if coming from a shared result link
@@ -803,7 +818,7 @@
                     <div class="bg-white/85 dark:bg-surface-dark/90 backdrop-blur-md rounded-3xl p-6 md:p-10 shadow-xl border border-black/5 dark:border-white/5 relative overflow-hidden text-center">
                         <p class="text-lg text-slate-500 dark:text-slate-400 mb-4 font-body">This person's Lunch Personality is...</p>
                         <div class="w-24 h-24 rounded-2xl mx-auto mb-4 flex items-center justify-center shadow-lg" style="background: ${personality.color}20; color: ${personality.color}">
-                            <span class="material-symbols-outlined text-5xl">${personality.icon}</span>
+                            <span class="material-icons-round text-5xl">${personality.icon}</span>
                         </div>
                         <h1 class="text-4xl font-bold text-slate-900 dark:text-white mb-2 font-display">${personality.name}</h1>
                         <p class="text-xl font-medium italic mb-6" style="color: ${personality.color}">"${personality.tagline}"</p>
