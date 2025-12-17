@@ -385,24 +385,34 @@
             budget: 0, foodie: 0, health: 0, mood: 0
         };
 
-        // DOM Elements
-        const progressBar = document.getElementById('progress-bar');
-        const progressText = document.getElementById('progress-text');
-        const progressPercent = document.getElementById('progress-percent');
-        const questionText = document.getElementById('question-text');
-        const optionsContainer = document.getElementById('options-container');
-        const quizContent = document.getElementById('quiz-content');
-        const resultsContent = document.getElementById('results-content');
-        const quizStart = document.getElementById('quiz-start');
-        const quizQuestions = document.getElementById('quiz-questions');
+        // DOM Elements (initialized after DOM is ready)
+        let progressBar, progressText, progressPercent, questionText, optionsContainer;
+        let quizContent, resultsContent, quizStart, quizQuestions;
+
+        // Initialize DOM references
+        function initDOMElements() {
+            progressBar = document.getElementById('progress-bar');
+            progressText = document.getElementById('progress-text');
+            progressPercent = document.getElementById('progress-percent');
+            questionText = document.getElementById('question-text');
+            optionsContainer = document.getElementById('options-container');
+            quizContent = document.getElementById('quiz-content');
+            resultsContent = document.getElementById('results-content');
+            quizStart = document.getElementById('quiz-start');
+            quizQuestions = document.getElementById('quiz-questions');
+        }
 
         // Initialize - just update live count, wait for user to start
         function init() {
+            initDOMElements();
             updateLiveCount();
         }
 
         // Start the quiz
         function startQuiz() {
+            if (!quizStart || !quizQuestions) {
+                initDOMElements();
+            }
             quizStart.classList.add('hidden');
             quizQuestions.classList.remove('hidden');
             renderQuestion();
