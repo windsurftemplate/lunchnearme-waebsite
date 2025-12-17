@@ -194,10 +194,17 @@
     </main>
 
     <script>
-        // Supabase Client
+        // Supabase Client (with fallback if SDK doesn't load)
         const SUPABASE_URL = 'https://ekuqmcouqchzrwnvnzkr.supabase.co';
         const SUPABASE_ANON_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImVrdXFtY291cWNoenJ3bnZuemtyIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NjQ4NzE5NDAsImV4cCI6MjA4MDQ0Nzk0MH0.T8AMvu_NPsIyQ5DFXuozphgChNGHi3jnuJm7JgAVdWk';
-        const supabase = window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
+        let supabase = null;
+        try {
+            if (window.supabase && window.supabase.createClient) {
+                supabase = window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
+            }
+        } catch (e) {
+            console.warn('Supabase SDK not loaded, quiz will work without saving results');
+        }
 
         // Current quiz result ID (set after submission)
         let currentResultId = null;
@@ -404,7 +411,6 @@
 
         // Initialize - just update live count, wait for user to start
         function init() {
-            initDOMElements();
             updateLiveCount();
         }
 
@@ -497,27 +503,29 @@
             const campaign = urlParams.get('utm_campaign');
             const referrerCode = urlParams.get('ref');
 
-            // Save to Supabase
-            try {
-                const { data, error } = await supabase.rpc('submit_quiz_result', {
-                    p_personality_type: result,
-                    p_answers: answers.map((a, i) => ({ question: questions[i].id, answer: a.text })),
-                    p_scores: scores,
-                    p_source: source,
-                    p_medium: medium,
-                    p_campaign: campaign,
-                    p_referrer_code: referrerCode,
-                    p_user_agent: navigator.userAgent
-                });
+            // Save to Supabase (if available)
+            if (supabase) {
+                try {
+                    const { data, error } = await supabase.rpc('submit_quiz_result', {
+                        p_personality_type: result,
+                        p_answers: answers.map((a, i) => ({ question: questions[i].id, answer: a.text })),
+                        p_scores: scores,
+                        p_source: source,
+                        p_medium: medium,
+                        p_campaign: campaign,
+                        p_referrer_code: referrerCode,
+                        p_user_agent: navigator.userAgent
+                    });
 
-                if (error) {
-                    console.error('Error saving quiz result:', error);
-                } else {
-                    currentResultId = data;
-                    console.log('Quiz result saved:', currentResultId);
+                    if (error) {
+                        console.error('Error saving quiz result:', error);
+                    } else {
+                        currentResultId = data;
+                        console.log('Quiz result saved:', currentResultId);
+                    }
+                } catch (err) {
+                    console.error('Failed to save quiz result:', err);
                 }
-            } catch (err) {
-                console.error('Failed to save quiz result:', err);
             }
 
             // Hide quiz, show results
@@ -660,7 +668,7 @@
 
         // Share functions with tracking
         async function trackShare(platform, type) {
-            if (!currentResultId) return null;
+            if (!currentResultId || !supabase) return null;
 
             try {
                 const { data, error } = await supabase.rpc('create_quiz_share', {
@@ -732,7 +740,7 @@
             submitBtn.textContent = 'Saving...';
 
             try {
-                if (currentResultId) {
+                if (supabase && currentResultId) {
                     // Update the quiz result with email
                     const { error } = await supabase.rpc('capture_quiz_email', {
                         p_result_id: currentResultId,
@@ -747,7 +755,7 @@
                         submitBtn.textContent = 'Get My Tips';
                         return;
                     }
-                } else {
+                } else if (supabase) {
                     // Fallback: insert directly if no result ID
                     const { error } = await supabase.from('quiz_results').insert({
                         email: email,
@@ -765,6 +773,7 @@
                         return;
                     }
                 }
+                // If no supabase, just show success (email won't be saved but UX continues)
 
                 // Show success state
                 e.target.innerHTML = `
@@ -805,8 +814,8 @@
             const result = params.get('result');
             const refCode = params.get('ref');
 
-            // Track referral click
-            if (refCode) {
+            // Track referral click (if supabase available)
+            if (refCode && supabase) {
                 try {
                     await supabase.rpc('increment_share_click', {
                         p_referral_code: refCode
@@ -849,6 +858,9 @@
 
         // Initialize
         document.addEventListener('DOMContentLoaded', async () => {
+            // Always initialize DOM elements first
+            initDOMElements();
+
             const isSharedResult = await checkSharedResult();
             if (!isSharedResult) {
                 init();
