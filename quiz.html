@@ -136,7 +136,7 @@
                                 <span class="material-icons-round text-brand-orange">psychology</span> 8 Types
                             </div>
                         </div>
-                        <button onclick="document.getElementById('quiz-start').classList.add('hidden'); document.getElementById('quiz-questions').classList.remove('hidden'); if(typeof renderQuestion === 'function') renderQuestion(); else alert('renderQuestion not found');" class="bg-gradient-to-r from-brand-orange to-brand-pink text-white font-bold text-lg px-10 py-4 rounded-full hover:opacity-90 transition-all shadow-lg shadow-brand-orange/30 hover:shadow-brand-orange/40 transform hover:-translate-y-1 flex items-center justify-center gap-2 mx-auto">
+                        <button onclick="startQuiz()" class="bg-gradient-to-r from-brand-orange to-brand-pink text-white font-bold text-lg px-10 py-4 rounded-full hover:opacity-90 transition-all shadow-lg shadow-brand-orange/30 hover:shadow-brand-orange/40 transform hover:-translate-y-1 flex items-center justify-center gap-2 mx-auto">
                             <span class="material-icons-round">play_arrow</span>
                             Start Quiz
                         </button>
@@ -193,24 +193,15 @@
         </div>
     </main>
 
-    <!-- Minimal fallback script in case main script fails -->
     <script>
-        window.onerror = function(msg, url, lineNo, columnNo, error) {
-            console.error('Script error:', msg, 'at line', lineNo);
-            return false;
-        };
-    </script>
-
-    <script>
-        console.log('Quiz script loading...');
 
         // Supabase Client (with fallback if SDK doesn't load)
         const SUPABASE_URL = 'https://ekuqmcouqchzrwnvnzkr.supabase.co';
         const SUPABASE_ANON_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImVrdXFtY291cWNoenJ3bnZuemtyIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NjQ4NzE5NDAsImV4cCI6MjA4MDQ0Nzk0MH0.T8AMvu_NPsIyQ5DFXuozphgChNGHi3jnuJm7JgAVdWk';
-        let supabase = null;
+        let supabaseClient = null;
         try {
             if (window.supabase && window.supabase.createClient) {
-                supabase = window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
+                supabaseClient = window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
             }
         } catch (e) {
             console.warn('Supabase SDK not loaded, quiz will work without saving results');
@@ -426,19 +417,13 @@
 
         // Start the quiz
         function startQuiz() {
-            console.log('startQuiz called');
             const start = document.getElementById('quiz-start');
             const questions = document.getElementById('quiz-questions');
-            console.log('start element:', start);
-            console.log('questions element:', questions);
             if (start && questions) {
                 start.classList.add('hidden');
                 questions.classList.remove('hidden');
-                // Initialize other DOM elements if needed
                 if (!progressBar) initDOMElements();
                 renderQuestion();
-            } else {
-                console.error('Could not find quiz elements');
             }
         }
 
@@ -522,9 +507,9 @@
             const referrerCode = urlParams.get('ref');
 
             // Save to Supabase (if available)
-            if (supabase) {
+            if (supabaseClient) {
                 try {
-                    const { data, error } = await supabase.rpc('submit_quiz_result', {
+                    const { data, error } = await supabaseClient.rpc('submit_quiz_result', {
                         p_personality_type: result,
                         p_answers: answers.map((a, i) => ({ question: questions[i].id, answer: a.text })),
                         p_scores: scores,
@@ -686,10 +671,10 @@
 
         // Share functions with tracking
         async function trackShare(platform, type) {
-            if (!currentResultId || !supabase) return null;
+            if (!currentResultId || !supabaseClient) return null;
 
             try {
-                const { data, error } = await supabase.rpc('create_quiz_share', {
+                const { data, error } = await supabaseClient.rpc('create_quiz_share', {
                     p_result_id: currentResultId,
                     p_platform: platform
                 });
@@ -758,9 +743,9 @@
             submitBtn.textContent = 'Saving...';
 
             try {
-                if (supabase && currentResultId) {
+                if (supabaseClient && currentResultId) {
                     // Update the quiz result with email
-                    const { error } = await supabase.rpc('capture_quiz_email', {
+                    const { error } = await supabaseClient.rpc('capture_quiz_email', {
                         p_result_id: currentResultId,
                         p_email: email
                     });
@@ -773,9 +758,9 @@
                         submitBtn.textContent = 'Get My Tips';
                         return;
                     }
-                } else if (supabase) {
+                } else if (supabaseClient) {
                     // Fallback: insert directly if no result ID
-                    const { error } = await supabase.from('quiz_results').insert({
+                    const { error } = await supabaseClient.from('quiz_results').insert({
                         email: email,
                         personality_type: type,
                         answers: [],
@@ -833,9 +818,9 @@
             const refCode = params.get('ref');
 
             // Track referral click (if supabase available)
-            if (refCode && supabase) {
+            if (refCode && supabaseClient) {
                 try {
-                    await supabase.rpc('increment_share_click', {
+                    await supabaseClient.rpc('increment_share_click', {
                         p_referral_code: refCode
                     });
                     console.log('Referral click tracked:', refCode);
