@@ -136,7 +136,7 @@
                                 <span class="material-icons-round text-brand-orange">psychology</span> 8 Types
                             </div>
                         </div>
-                        <button id="start-quiz-btn" class="bg-gradient-to-r from-brand-orange to-brand-pink text-white font-bold text-lg px-10 py-4 rounded-full hover:opacity-90 transition-all shadow-lg shadow-brand-orange/30 hover:shadow-brand-orange/40 transform hover:-translate-y-1 flex items-center justify-center gap-2 mx-auto">
+                        <button onclick="document.getElementById('quiz-start').classList.add('hidden'); document.getElementById('quiz-questions').classList.remove('hidden'); if(typeof renderQuestion === 'function') renderQuestion(); else alert('renderQuestion not found');" class="bg-gradient-to-r from-brand-orange to-brand-pink text-white font-bold text-lg px-10 py-4 rounded-full hover:opacity-90 transition-all shadow-lg shadow-brand-orange/30 hover:shadow-brand-orange/40 transform hover:-translate-y-1 flex items-center justify-center gap-2 mx-auto">
                             <span class="material-icons-round">play_arrow</span>
                             Start Quiz
                         </button>
@@ -194,6 +194,8 @@
     </main>
 
     <script>
+        console.log('Quiz script loading...');
+
         // Supabase Client (with fallback if SDK doesn't load)
         const SUPABASE_URL = 'https://ekuqmcouqchzrwnvnzkr.supabase.co';
         const SUPABASE_ANON_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImVrdXFtY291cWNoenJ3bnZuemtyIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NjQ4NzE5NDAsImV4cCI6MjA4MDQ0Nzk0MH0.T8AMvu_NPsIyQ5DFXuozphgChNGHi3jnuJm7JgAVdWk';
@@ -416,12 +418,20 @@
 
         // Start the quiz
         function startQuiz() {
-            if (!quizStart || !quizQuestions) {
-                initDOMElements();
+            console.log('startQuiz called');
+            const start = document.getElementById('quiz-start');
+            const questions = document.getElementById('quiz-questions');
+            console.log('start element:', start);
+            console.log('questions element:', questions);
+            if (start && questions) {
+                start.classList.add('hidden');
+                questions.classList.remove('hidden');
+                // Initialize other DOM elements if needed
+                if (!progressBar) initDOMElements();
+                renderQuestion();
+            } else {
+                console.error('Could not find quiz elements');
             }
-            quizStart.classList.add('hidden');
-            quizQuestions.classList.remove('hidden');
-            renderQuestion();
         }
 
         // Update live count randomly
@@ -858,18 +868,14 @@
 
         // Initialize
         document.addEventListener('DOMContentLoaded', async () => {
-            // Always initialize DOM elements first
-            initDOMElements();
-
-            // Attach click handler to start button
-            const startBtn = document.getElementById('start-quiz-btn');
-            if (startBtn) {
-                startBtn.addEventListener('click', startQuiz);
-            }
-
-            const isSharedResult = await checkSharedResult();
-            if (!isSharedResult) {
-                init();
+            try {
+                initDOMElements();
+                const isSharedResult = await checkSharedResult();
+                if (!isSharedResult) {
+                    init();
+                }
+            } catch (err) {
+                console.error('Initialization error:', err);
             }
         });
     </script>
