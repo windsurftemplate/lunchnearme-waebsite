@@ -566,7 +566,7 @@
                         <div class="text-center">
                             <h3 class="text-xl font-bold text-slate-900 dark:text-white mb-2 font-display">Get Your Full Lunch Profile</h3>
                             <p class="text-slate-600 dark:text-slate-400 mb-4 font-body">Weekly tips tailored for your personality + early access to new features</p>
-                            <form onsubmit="handleEmailSubmit(event, '${result}')" class="max-w-md mx-auto">
+                            <form onsubmit="handleEmailSubmit(event, '${result}'); return false;" class="max-w-md mx-auto">
                                 <div class="flex flex-col sm:flex-row gap-3">
                                     <input type="email" id="email-input" placeholder="Enter your email" required class="flex-1 px-4 py-3 border-2 border-slate-200 dark:border-white/10 rounded-full bg-white dark:bg-black/20 focus:outline-none focus:border-brand-orange transition-colors font-body">
                                     <button type="submit" class="bg-gradient-to-r from-brand-orange to-brand-pink text-white font-semibold px-6 py-3 rounded-full hover:opacity-90 transition-colors shadow-lg shadow-brand-orange/20">Get My Tips</button>
