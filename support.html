@@ -1,0 +1,259 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="LunchNear.me Support - Get help with the app, FAQs, and contact our support team">
+    <title>Support - LunchNear.me</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🐱</text></svg>">
+    <style>
+        html { scroll-behavior: smooth; }
+        body { font-family: 'Inter', sans-serif; }
+        details[open] summary { margin-bottom: 0.75rem; }
+        details summary { cursor: pointer; }
+        details summary::-webkit-details-marker { display: none; }
+    </style>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        stone: { 850: '#1f1f1e' }
+                    }
+                }
+            }
+        }
+    </script>
+</head>
+<body class="bg-stone-50 text-stone-900 antialiased">
+
+    <!-- Navigation -->
+    <nav class="fixed top-0 w-full z-50 bg-stone-50/80 backdrop-blur-md border-b border-stone-200/60">
+        <div class="max-w-7xl mx-auto px-6 h-16 flex items-center justify-between">
+            <div class="flex items-center gap-2">
+                <a href="/" class="text-2xl">🐱</a>
+                <span class="text-sm font-semibold tracking-tight"><span class="text-stone-900">lunch</span><span style="background: linear-gradient(135deg, #F97316 0%, #EC4899 100%); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;">near.me</span></span>
+            </div>
+            <div class="hidden md:flex items-center gap-8">
+                <a href="/#features" class="text-xs font-medium text-stone-500 hover:text-stone-900 transition-colors">Features</a>
+                <a href="/#how-it-works" class="text-xs font-medium text-stone-500 hover:text-stone-900 transition-colors">How It Works</a>
+                <a href="/#download" class="text-xs font-medium text-stone-500 hover:text-stone-900 transition-colors">Download</a>
+            </div>
+            <a href="/#download" class="h-9 px-5 rounded-lg bg-orange-500 text-white text-xs font-medium hover:bg-orange-600 transition-all flex items-center justify-center gap-2 shadow-lg shadow-orange-500/20">
+                Get the App
+            </a>
+        </div>
+    </nav>
+
+    <!-- Support Content -->
+    <main class="pt-32 pb-24 px-6">
+        <div class="max-w-3xl mx-auto">
+            <h1 class="text-4xl md:text-5xl font-medium tracking-tight mb-2">Support</h1>
+            <p class="text-stone-500 mb-12">We're here to help you get the most out of LunchNear.me</p>
+
+            <!-- Contact Box -->
+            <div class="bg-orange-50 border border-orange-200 rounded-2xl p-6 mb-12">
+                <div class="flex items-start gap-4">
+                    <div class="w-10 h-10 bg-orange-100 rounded-xl flex items-center justify-center flex-shrink-0">
+                        <i data-lucide="mail" class="w-5 h-5 text-orange-600"></i>
+                    </div>
+                    <div>
+                        <h3 class="text-lg font-semibold text-stone-900 mb-2">Contact Support</h3>
+                        <p class="text-sm text-stone-600 mb-4">Have a question or need help? Reach out to our support team and we'll get back to you as soon as possible.</p>
+                        <a href="mailto:support@lunchnear.me" class="inline-flex items-center gap-2 bg-orange-500 hover:bg-orange-600 text-white px-4 py-2 rounded-lg text-sm font-medium transition-all">
+                            <i data-lucide="send" class="w-4 h-4"></i>
+                            Email Support
+                        </a>
+                    </div>
+                </div>
+            </div>
+
+            <!-- FAQ Section -->
+            <h2 class="text-2xl font-semibold mb-6">Frequently Asked Questions</h2>
+
+            <div class="space-y-4 mb-12">
+                <!-- FAQ Item 1 -->
+                <details class="bg-white border border-stone-200 rounded-xl p-5 group">
+                    <summary class="flex items-center justify-between font-medium text-stone-900">
+                        <span>How do I find restaurants near me?</span>
+                        <i data-lucide="chevron-down" class="w-5 h-5 text-stone-400 transition-transform group-open:rotate-180"></i>
+                    </summary>
+                    <p class="text-stone-600 text-sm leading-relaxed">
+                        LunchNear.me uses your device's location to automatically show restaurants nearby. Make sure you've granted location permissions when prompted. You can also search for restaurants in a specific area by using the search feature.
+                    </p>
+                </details>
+
+                <!-- FAQ Item 2 -->
+                <details class="bg-white border border-stone-200 rounded-xl p-5 group">
+                    <summary class="flex items-center justify-between font-medium text-stone-900">
+                        <span>How do I create or join a lunch group?</span>
+                        <i data-lucide="chevron-down" class="w-5 h-5 text-stone-400 transition-transform group-open:rotate-180"></i>
+                    </summary>
+                    <p class="text-stone-600 text-sm leading-relaxed">
+                        To create a group, tap the "Groups" tab and select "Create Group." Give your group a name and invite friends via a share link. To join a group, simply tap on an invite link shared with you or enter the group code in the app.
+                    </p>
+                </details>
+
+                <!-- FAQ Item 3 -->
+                <details class="bg-white border border-stone-200 rounded-xl p-5 group">
+                    <summary class="flex items-center justify-between font-medium text-stone-900">
+                        <span>How does the AI recommendation work?</span>
+                        <i data-lucide="chevron-down" class="w-5 h-5 text-stone-400 transition-transform group-open:rotate-180"></i>
+                    </summary>
+                    <p class="text-stone-600 text-sm leading-relaxed">
+                        Our AI learns your preferences over time based on your ratings, saved restaurants, and cuisine preferences. The more you use the app, the better the recommendations become. You can also take our food preference quiz to help us understand your tastes faster.
+                    </p>
+                </details>
+
+                <!-- FAQ Item 4 -->
+                <details class="bg-white border border-stone-200 rounded-xl p-5 group">
+                    <summary class="flex items-center justify-between font-medium text-stone-900">
+                        <span>How do I reset my password?</span>
+                        <i data-lucide="chevron-down" class="w-5 h-5 text-stone-400 transition-transform group-open:rotate-180"></i>
+                    </summary>
+                    <p class="text-stone-600 text-sm leading-relaxed">
+                        On the login screen, tap "Forgot Password" and enter your email address. You'll receive a password reset link within a few minutes. If you don't see the email, check your spam folder.
+                    </p>
+                </details>
+
+                <!-- FAQ Item 5 -->
+                <details class="bg-white border border-stone-200 rounded-xl p-5 group">
+                    <summary class="flex items-center justify-between font-medium text-stone-900">
+                        <span>Why isn't my location working?</span>
+                        <i data-lucide="chevron-down" class="w-5 h-5 text-stone-400 transition-transform group-open:rotate-180"></i>
+                    </summary>
+                    <p class="text-stone-600 text-sm leading-relaxed">
+                        First, check that location services are enabled for LunchNear.me in your device settings. On iOS, go to Settings > Privacy > Location Services. On Android, go to Settings > Apps > LunchNear.me > Permissions. Make sure location is set to "While Using the App" or "Always."
+                    </p>
+                </details>
+
+                <!-- FAQ Item 6 -->
+                <details class="bg-white border border-stone-200 rounded-xl p-5 group">
+                    <summary class="flex items-center justify-between font-medium text-stone-900">
+                        <span>How do I delete my account?</span>
+                        <i data-lucide="chevron-down" class="w-5 h-5 text-stone-400 transition-transform group-open:rotate-180"></i>
+                    </summary>
+                    <p class="text-stone-600 text-sm leading-relaxed">
+                        You can request account deletion through our <a href="delete.html" class="text-orange-600 hover:underline">data deletion page</a> or by emailing <a href="mailto:privacy@lunchnear.me" class="text-orange-600 hover:underline">privacy@lunchnear.me</a>. We'll process your request within 30 days.
+                    </p>
+                </details>
+
+                <!-- FAQ Item 7 -->
+                <details class="bg-white border border-stone-200 rounded-xl p-5 group">
+                    <summary class="flex items-center justify-between font-medium text-stone-900">
+                        <span>Is the app free to use?</span>
+                        <i data-lucide="chevron-down" class="w-5 h-5 text-stone-400 transition-transform group-open:rotate-180"></i>
+                    </summary>
+                    <p class="text-stone-600 text-sm leading-relaxed">
+                        Yes! LunchNear.me is completely free to download and use. All core features including restaurant discovery, AI recommendations, and group coordination are available at no cost.
+                    </p>
+                </details>
+
+                <!-- FAQ Item 8 -->
+                <details class="bg-white border border-stone-200 rounded-xl p-5 group">
+                    <summary class="flex items-center justify-between font-medium text-stone-900">
+                        <span>The app is running slowly. What can I do?</span>
+                        <i data-lucide="chevron-down" class="w-5 h-5 text-stone-400 transition-transform group-open:rotate-180"></i>
+                    </summary>
+                    <p class="text-stone-600 text-sm leading-relaxed">
+                        Try closing and reopening the app, or check for app updates in the App Store or Google Play. Make sure you have a stable internet connection. If the issue persists, try uninstalling and reinstalling the app.
+                    </p>
+                </details>
+            </div>
+
+            <!-- Quick Links -->
+            <h2 class="text-2xl font-semibold mb-6">Quick Links</h2>
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-4 mb-12">
+                <a href="privacy.html" class="bg-white border border-stone-200 rounded-xl p-5 hover:border-orange-300 hover:shadow-sm transition-all group">
+                    <div class="w-10 h-10 bg-stone-100 rounded-xl flex items-center justify-center mb-3 group-hover:bg-orange-100 transition-colors">
+                        <i data-lucide="shield" class="w-5 h-5 text-stone-600 group-hover:text-orange-600"></i>
+                    </div>
+                    <h3 class="font-medium text-stone-900 mb-1">Privacy Policy</h3>
+                    <p class="text-xs text-stone-500">Learn how we protect your data</p>
+                </a>
+
+                <a href="terms.html" class="bg-white border border-stone-200 rounded-xl p-5 hover:border-orange-300 hover:shadow-sm transition-all group">
+                    <div class="w-10 h-10 bg-stone-100 rounded-xl flex items-center justify-center mb-3 group-hover:bg-orange-100 transition-colors">
+                        <i data-lucide="file-text" class="w-5 h-5 text-stone-600 group-hover:text-orange-600"></i>
+                    </div>
+                    <h3 class="font-medium text-stone-900 mb-1">Terms of Service</h3>
+                    <p class="text-xs text-stone-500">Read our terms and conditions</p>
+                </a>
+
+                <a href="delete.html" class="bg-white border border-stone-200 rounded-xl p-5 hover:border-orange-300 hover:shadow-sm transition-all group">
+                    <div class="w-10 h-10 bg-stone-100 rounded-xl flex items-center justify-center mb-3 group-hover:bg-orange-100 transition-colors">
+                        <i data-lucide="trash-2" class="w-5 h-5 text-stone-600 group-hover:text-orange-600"></i>
+                    </div>
+                    <h3 class="font-medium text-stone-900 mb-1">Delete My Data</h3>
+                    <p class="text-xs text-stone-500">Request account deletion</p>
+                </a>
+            </div>
+
+            <!-- Still need help -->
+            <div class="bg-stone-100 rounded-2xl p-8 text-center">
+                <h3 class="text-xl font-semibold text-stone-900 mb-2">Still need help?</h3>
+                <p class="text-stone-600 mb-6">Our support team is happy to assist you with any questions.</p>
+                <a href="mailto:support@lunchnear.me" class="inline-flex items-center gap-2 bg-stone-900 hover:bg-stone-800 text-white px-6 py-3 rounded-lg text-sm font-medium transition-all">
+                    <i data-lucide="message-circle" class="w-4 h-4"></i>
+                    Get in Touch
+                </a>
+            </div>
+        </div>
+    </main>
+
+    <!-- Footer -->
+    <footer class="bg-white border-t border-stone-200 pt-16 pb-8">
+        <div class="max-w-7xl mx-auto px-6">
+            <div class="grid grid-cols-2 md:grid-cols-4 gap-8 mb-12">
+                <div>
+                    <h4 class="text-xs font-semibold text-stone-900 mb-4">Product</h4>
+                    <ul class="space-y-2">
+                        <li><a href="/#features" class="text-xs text-stone-500 hover:text-stone-900">Features</a></li>
+                        <li><a href="/#how-it-works" class="text-xs text-stone-500 hover:text-stone-900">How It Works</a></li>
+                        <li><a href="/#download" class="text-xs text-stone-500 hover:text-stone-900">Download</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <h4 class="text-xs font-semibold text-stone-900 mb-4">Legal</h4>
+                    <ul class="space-y-2">
+                        <li><a href="privacy.html" class="text-xs text-stone-500 hover:text-stone-900">Privacy Policy</a></li>
+                        <li><a href="terms.html" class="text-xs text-stone-500 hover:text-stone-900">Terms of Service</a></li>
+                        <li><a href="delete.html" class="text-xs text-stone-500 hover:text-stone-900">Delete My Data</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <h4 class="text-xs font-semibold text-stone-900 mb-4">Support</h4>
+                    <ul class="space-y-2">
+                        <li><a href="support.html" class="text-xs text-stone-500 hover:text-stone-900">Help Center</a></li>
+                        <li><a href="mailto:support@lunchnear.me" class="text-xs text-stone-500 hover:text-stone-900">Contact Us</a></li>
+                        <li><a href="mailto:privacy@lunchnear.me" class="text-xs text-stone-500 hover:text-stone-900">Privacy Questions</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <h4 class="text-xs font-semibold text-stone-900 mb-4">Connect</h4>
+                    <div class="flex gap-4">
+                        <a href="#" class="text-stone-400 hover:text-stone-900"><i data-lucide="twitter" class="w-4 h-4"></i></a>
+                        <a href="#" class="text-stone-400 hover:text-stone-900"><i data-lucide="instagram" class="w-4 h-4"></i></a>
+                    </div>
+                </div>
+            </div>
+            <div class="pt-8 border-t border-stone-100 flex flex-col md:flex-row justify-between items-center gap-4">
+                <div class="flex items-center gap-2">
+                    <span class="text-xl">🐱</span>
+                    <span class="text-xs font-semibold tracking-tight">LunchNear.me</span>
+                </div>
+                <div class="text-[10px] text-stone-400">
+                    &copy; 2025 LunchNear.me. All rights reserved.
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        lucide.createIcons();
+    </script>
+</body>
+</html>
