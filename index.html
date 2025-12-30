@@ -168,7 +168,7 @@
                     <!-- Social Proof -->
                     <p class="text-sm text-gray-500 flex items-center gap-2 fade-in-delay-3">
                         <span class="material-icons-round text-success text-lg">check_circle</span>
-                        2,847 professionals reclaimed their lunch decisions
+                        Join professionals reclaiming their lunch decisions
                     </p>
                 </div>
 
@@ -202,13 +202,13 @@
                                 </div>
                                 <h3 class="font-display font-bold text-2xl leading-tight mb-4">Hungry?<br>Let's find lunch.</h3>
                                 <div class="relative mb-3">
-                                    <input type="text" placeholder="Search address, city..." class="w-full bg-gray-100 border-none rounded-xl py-3 pl-10 pr-4 text-sm placeholder-gray-400">
+                                    <input type="text" placeholder="Search address, city..." class="w-full bg-gray-100 border-none rounded-xl py-3 pl-10 pr-4 text-sm placeholder-gray-400 cursor-default" disabled aria-label="Decorative search preview">
                                     <span class="material-icons-round absolute left-3 top-3 text-gray-400 text-lg">search</span>
                                 </div>
-                                <button class="w-full bg-primary-50 text-primary py-2 rounded-xl text-xs font-semibold flex items-center justify-center gap-1 mb-4">
+                                <div class="w-full bg-primary-50 text-primary py-2 rounded-xl text-xs font-semibold flex items-center justify-center gap-1 mb-4 cursor-default" aria-label="Decorative button preview">
                                     <span class="material-icons-round text-sm">my_location</span>
                                     Use current location
-                                </button>
+                                </div>
                                 <div class="flex gap-2 overflow-x-auto pb-2">
                                     <span class="px-3 py-1 bg-brand-gradient text-white text-xs font-medium rounded-full whitespace-nowrap">Open Now</span>
                                     <span class="px-3 py-1 bg-gray-100 text-gray-600 text-xs font-medium rounded-full whitespace-nowrap">Under $10</span>
@@ -550,8 +550,15 @@
                     </div>
 
                     <div class="text-xs text-primary-100/80">
-                        <p class="mb-1">Currently available for testers. Contact <a class="underline hover:text-white" href="mailto:hello@lunchnear.me">hello@lunchnear.me</a> to join.</p>
-                        <p>iOS version coming soon!</p>
+                        <p class="mb-3">Currently available for testers. Contact <a class="underline hover:text-white" href="mailto:hello@lunchnear.me">hello@lunchnear.me</a> to join.</p>
+                        <div class="mt-4 max-w-md mx-auto">
+                            <p class="mb-2 font-semibold text-white">iOS coming soon - get notified!</p>
+                            <form action="mailto:hello@lunchnear.me" method="GET" class="flex gap-2 justify-center">
+                                <input type="email" name="subject" value="iOS Waitlist Signup" hidden>
+                                <input type="email" name="body" placeholder="your@email.com" required class="px-4 py-2 rounded-lg text-gray-900 text-sm flex-1 max-w-[200px]" id="ios-waitlist-email">
+                                <a href="#" onclick="window.location.href='mailto:hello@lunchnear.me?subject=iOS%20Waitlist%20Signup&body=Please%20add%20me%20to%20the%20iOS%20waitlist.%20Email:%20'+document.getElementById('ios-waitlist-email').value; return false;" class="bg-white text-primary px-4 py-2 rounded-lg text-sm font-semibold hover:bg-gray-100 transition-colors">Notify Me</a>
+                            </form>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -684,7 +691,7 @@
             </div>
 
             <div class="border-t border-gray-200 pt-8 text-center text-xs text-gray-500">
-                <p>© 2024 LunchNear.me. Made by people who got tired of being paralyzed by lunch.</p>
+                <p>© 2025 LunchNear.me. Made by people who got tired of being paralyzed by lunch.</p>
             </div>
         </div>
     </footer>
